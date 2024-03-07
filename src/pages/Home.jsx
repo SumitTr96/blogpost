@@ -1,11 +1,13 @@
 
-import MyComponent from '../component/fetchData'
+import PostsItem from '../component/PostsItem'
 
 function Home() {
 
   return (
-    <section className='postData_container'>
-      <MyComponent/>
+    <section>
+      <br/>
+      <PostsItem/>
+      <br/>
     </section>
   );
 }
