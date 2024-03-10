@@ -1,0 +1,17 @@
+body.dark {
+    background-color: #343a40;
+    color: #fff;
+   }
+   
+   body.dark .bg-secondary {
+    background-color: #495057;
+   }
+   
+   body.dark .text-white {
+    color: #fff;
+   }
+   .card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+   }
+   

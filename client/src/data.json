@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "thumbnail": "images/blog1.jpg",
+    "title": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam at excepturi eaque magni id rem",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut in est reprehenderit beatae sunt ipsam aspernatur excepturi blanditiis saepe, porro, accusamus architecto, exercitationem aliquid eos! Dolore obcaecati temporibus doloribus quos!",
+    "category": "Agriculture",
+    "author": "Adam Sandler",
+    "authorDP": "images/avatar12.jpg"
+  },
+  {
+    "id": 2,
+    "thumbnail": "images/blog2.jpg",
+    "title": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam at excepturi eaque magni id rem",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut in est reprehenderit beatae sunt ipsam aspernatur excepturi blanditiis saepe, porro, accusamus architecto, exercitationem aliquid eos! Dolore obcaecati temporibus doloribus quos!",
+    "category": "Science",
+    "author": "Robert D. Junior",
+    "authorDP": "images/avatar2.jpg"
+  },
+  {
+    "id": 3,
+    "thumbnail": "images/blog3.jpg",
+    "title": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam at excepturi eaque magni id rem",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut in est reprehenderit beatae sunt ipsam aspernatur excepturi blanditiis saepe, porro, accusamus architecto, exercitationem aliquid eos! Dolore obcaecati temporibus doloribus quos!",
+    "category": "Education",
+    "author": "Chris Hemsworth",
+    "authorDP": "images/avatar3.jpg"
+  },
+  {
+    "id": 4,
+    "thumbnail": "images/blog4.jpg",
+    "title": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam at excepturi eaque magni id rem",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut in est reprehenderit beatae sunt ipsam aspernatur excepturi blanditiis saepe, porro, accusamus architecto, exercitationem aliquid eos! Dolore obcaecati temporibus doloribus quos!",
+    "category": "Weather",
+    "author": "Brad Pitt",
+    "authorDP": "images/avatar4.jpg"
+  },
+  {
+    "id": 5,
+    "thumbnail": "images/blog5.jpg",
+    "title": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam at excepturi eaque magni id rem",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut in est reprehenderit beatae sunt ipsam aspernatur excepturi blanditiis saepe, porro, accusamus architecto, exercitationem aliquid eos! Dolore obcaecati temporibus doloribus quos!",
+    "category": "Sports",
+    "author": "Henry Cavill",
+    "authorDP": "images/avatar5.jpg"
+  },
+  {
+    "id": 6,
+    "thumbnail": "images/blog6.jpg",
+    "title": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam at excepturi eaque magni id rem",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut in est reprehenderit beatae sunt ipsam aspernatur excepturi blanditiis saepe, porro, accusamus architecto, exercitationem aliquid eos! Dolore obcaecati temporibus doloribus quos!",
+    "category": "Business",
+    "author": "Warren Buffet",
+    "authorDP": "images/avatar6.jpg"
+  }
+]
