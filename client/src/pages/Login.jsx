@@ -1,22 +1,41 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import {UserContext} from '../context/userContext'
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const[error,setError]=useState("")
+  const navigate=useNavigate()
+
+  const {setCurrentUser}=useContext(UserContext)
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const loginUser=async(e)=>{
+    e.preventDefault()
+    setError('')
+    try {
+      const response=await axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`,formData)
+      const user=await response.data
+      setCurrentUser(user)
+      navigate('/')
+    } catch (err) {
+      setError(err.response.data.message)
+    }
+  }
 
   return (
     <div className="container py-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2 className="text-center mb-4">Login</h2>
-          <form>
+          <form onSubmit={loginUser}>
+          {error &&<p className="form_error_message">{error}</p>}
             <div className="form-group">
               <label htmlFor="email">Email address</label>
               <input

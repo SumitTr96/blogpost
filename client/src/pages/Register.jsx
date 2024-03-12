@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
+import axios from 'axios'
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,16 +10,37 @@ const Register = () => {
     confirmPassword: "",
   });
 
+  const[error,setError]=useState('')
+  const navigate=useNavigate()
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData(prevState=>{
+      return {...prevState,[e.target.name]:e.target.value}
+    });
   };
+  const registerUser=async(e)=>{
+    e.preventDefault()
+    setError('')
+    try {
+      const response=await axios.post(`${process.env.REACT_APP_BASE_URL}/users/register`,formData)
+      const newUser=await response.data
+      console.log(newUser)
+      if(!newUser){
+        setError("Could not register user")
+      }
+      navigate('/')
+    } catch (err) {
+      setError(err.response.data.message)
+    }
+  }
 
   return (
     <div className="container py-5">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2 className="text-center mb-4">Register</h2>
-          <form>
+          <form onSubmit={registerUser}>
+            {error &&<p className="form_error_message">{error}</p>}
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
