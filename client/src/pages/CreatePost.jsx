@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useContext, useEffect } from "react";
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Uncategorized");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+
+  const {currentUser}=useContext(UserContext)
+  const token=currentUser?.token;
+  const navigate=useNavigate()
+  useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+  },[])
 
   const POST_CATEGORIES = [
     "Agriculture",

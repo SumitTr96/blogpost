@@ -18,6 +18,7 @@ import ErrorPage from "./pages/ErrorPage.jsx"
 import { RouterProvider, createBrowserRouter} from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Logout from "./pages/Logout.jsx";
 
 const router= createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router= createBrowserRouter([
            {path:"/Dashboard", element:<Dashboard />},
            {path:"/EditPost", element:<EditPost />},
            {path:"/DeletePost", element:<DeletePost />},
+           {path:"/Logout", element:<Logout />}
     ]
   }
 ])

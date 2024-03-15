@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState,useContext,useEffect } from "react";
+
 import PostAuthor from "../component/PostAuthor";
 import { Link } from "react-router-dom";
 import postImage from "../component/blog95.jpg";
 import "../css/postDetail.css";
-
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 const PostDetail = () => {
+  const {currentUser}=useContext(UserContext)
+  const token=currentUser?.token;
+  const navigate=useNavigate()
+  useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+  },[])
   return (
     <>
       <section className="post_detail py-5">

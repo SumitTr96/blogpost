@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 
 const Header = () => {
+  const { currentUser } = useContext(UserContext);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,35 +31,50 @@ const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav me-auto">
-              <li className="nav-item">
-                <Link to="/" className="nav-link">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/CreatePost" className="nav-link">
-                  Create Post
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/Authors" className="nav-link">
-                  Authors
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/UserProfile" className="nav-link">
-                  User
-                </Link>
-              </li>
-            </ul>
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link to="/Login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-            </ul>
+            {currentUser?.id && (
+              <ul className="navbar-nav me-auto">
+                <li className="nav-item">
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/CreatePost" className="nav-link">
+                    Create Post
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/Authors" className="nav-link">
+                    Authors
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/UserProfile" className="nav-link">
+                    User
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/Logout" className="nav-link">
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            )}
+
+            {!currentUser?.id && (
+              <ul className="navbar-nav me-auto">
+                <li className="nav-item">
+                  <Link to="/Authors" className="nav-link">
+                    Authors
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/Logout" className="nav-link">
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>

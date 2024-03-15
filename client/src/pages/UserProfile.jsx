@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "../component/avatar1.jpg";
 import { FaCheck, FaEdit } from "react-icons/fa";
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const [avatar, setAvatar] = useState(Avatar);
@@ -11,6 +13,14 @@ const UserProfile = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
+  const {currentUser}=useContext(UserContext)
+  const token=currentUser?.token;
+  const navigate=useNavigate()
+  useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+  },[])
   return (
     <section className="py-5">
       <div className="container">

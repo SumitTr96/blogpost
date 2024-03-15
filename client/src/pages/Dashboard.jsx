@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState,useContext,useEffect } from "react";
 import data from "../data.json";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState(data);
+  const {currentUser}=useContext(UserContext)
+  const token=currentUser?.token;
+  const navigate=useNavigate()
+  useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+  },[])
   return (
     <section className="dashboard py-4">
       <div className="container">

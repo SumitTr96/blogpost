@@ -13,14 +13,16 @@ const Login = () => {
   const {setCurrentUser}=useContext(UserContext)
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData(formData=>{
+      return{ ...formData, [e.target.name]: e.target.value };
+  })
+}
 
   const loginUser=async(e)=>{
     e.preventDefault()
     setError('')
     try {
-      const response=await axios.post(`${process.env.REACT_APP_BASE_URL}/users/login`,formData)
+      const response=await axios.post(`${process.env.REACT_APP_BASE_URL}/users/Login`,formData)
       const user=await response.data
       setCurrentUser(user)
       navigate('/')
@@ -35,7 +37,7 @@ const Login = () => {
         <div className="col-md-6">
           <h2 className="text-center mb-4">Login</h2>
           <form onSubmit={loginUser}>
-          {error &&<p className="form_error_message">{error}</p>}
+          {error &&(<p className="form_error_message">{error}</p>)}
             <div className="form-group">
               <label htmlFor="email">Email address</label>
               <input

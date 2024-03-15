@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState,useContext,useEffect } from "react";
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import data from "../data.json";
 
 const Authors = () => {
   const [authors, setAuthors] = useState(data);
+  const {currentUser}=useContext(UserContext)
+  const token=currentUser?.token;
+  const navigate=useNavigate()
+  useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+  },[])
   return (
     <div className="container py-5">
       <div className="row g-4">
