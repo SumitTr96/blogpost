@@ -21,7 +21,7 @@ const [author,setAuthor]=useState([])
   return (
     <div className="d-flex align-items-center">
       <Link
-        to={"/posts/users/sdfsdf"}
+        to={`/posts/users/${authorId}`}
         className="d-flex align-items-center text-decoration-none"
       >
         <img

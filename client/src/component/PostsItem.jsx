@@ -31,11 +31,11 @@ const PostsItem = () => {
       {resource.map(({ _id:id, title, description,creator, thumbnail, category,createdAt }) => (
         <div key={id} className="col">
           <div className="card h-100">
-            <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} className="card-img-top img-fluid" alt="postImage" /> {/* Ensure images are responsive */}
+            <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} className="card-img-top img-fluid" alt="post" /> {/* Ensure images are responsive */}
             <div className="card-body">
               <h5 className="card-title">{title}</h5>
               <p className="card-text">{description}</p>
-              <Link to="posts/:id" className="btn btn-primary">
+              <Link to={`posts/${id}`} className="btn btn-primary"> {/*Redirect to PostDetail */}
                 Read More
               </Link>
             </div>
