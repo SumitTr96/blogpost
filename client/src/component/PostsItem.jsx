@@ -1,26 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PostAuthor from "./PostAuthor";
-import data from "../data.json";
+import Loader from "./Loader";
+import axios from 'axios'
 
 const PostsItem = () => {
- const [resource] = useState(data);
+ const [resource,setResource] = useState([]);
+ const [isLoading,setIsloading]=useState(false)
+
+ useEffect(()=>{
+  const fetchPosts = async()=>{
+    setIsloading(true);
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts`)
+      setResource(response?.data)
+    } catch (err) {
+      console.log(err)
+    }
+    setIsloading(false)
+  }
+    fetchPosts()
+ },[])
+
+ if(isLoading){
+  return <Loader/>
+ }
 
  return (
     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      {resource.map(({ id, title, description, thumbnail, category }) => (
+      {resource.map(({ _id:id, title, description,creator, thumbnail, category,createdAt }) => (
         <div key={id} className="col">
           <div className="card h-100">
-            <img src={thumbnail} className="card-img-top img-fluid" alt="postImage" /> {/* Ensure images are responsive */}
+            <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} className="card-img-top img-fluid" alt="postImage" /> {/* Ensure images are responsive */}
             <div className="card-body">
               <h5 className="card-title">{title}</h5>
               <p className="card-text">{description}</p>
-              <Link to="/PostDetail" className="btn btn-primary">
+              <Link to="posts/:id" className="btn btn-primary">
                 Read More
               </Link>
             </div>
             <div className="card-footer d-flex justify-content-between align-items-center">
-              <PostAuthor />
+              <PostAuthor authorId={creator} createdAt={createdAt} />
               <Link to="/CategoryPosts" className="btn btn-light">
                 {category}
               </Link>

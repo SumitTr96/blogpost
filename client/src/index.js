@@ -27,18 +27,18 @@ const router= createBrowserRouter([
     errorElement:<ErrorPage/>,
     children:[
       {index:true, element: <Home />},
-           {path:"/login", element:<Login />},
-           {path:"/PostDetail", element:<PostDetail/>},
-           {path:"/CreatePost", element:<CreatePost />},
-           {path:"/Authors", element:<Authors />},
-           {path:"/AuthorPosts", element:<AuthorPosts />},
-           {path:"/CategoryPosts", element:<CategoryPosts />},
-           {path:"/Register", element:<Register />},
-           {path:"/UserProfile", element:<UserProfile />},
-           {path:"/Dashboard", element:<Dashboard />},
-           {path:"/EditPost", element:<EditPost />},
-           {path:"/DeletePost", element:<DeletePost />},
-           {path:"/Logout", element:<Logout />}
+           {path:"login", element:<Login />},
+           {path:"posts/:id", element:<PostDetail/>},
+           {path:"create", element:<CreatePost />},
+           {path:"authors", element:<Authors />},
+           {path:"posts/users/:id", element:<AuthorPosts />},
+           {path:"posts/categories/:category", element:<CategoryPosts />},
+           {path:"Register", element:<Register />},
+           {path:"profile:/id", element:<UserProfile />},
+           {path:"myposts/:id", element:<Dashboard />},
+           {path:"posts/:id/edit", element:<EditPost />},
+           {path:"posts/:id/edit", element:<DeletePost />},
+           {path:"logout", element:<Logout />}
     ]
   }
 ])

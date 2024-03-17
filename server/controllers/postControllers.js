@@ -46,7 +46,7 @@ const createPost=async (req,res,next)=>{
 
 
 //=====================GET ALL POSTS===========
-// POST : api/posts
+// GET : api/posts
 //UNPROTECTED
 
 const getPosts=async (req,res,next)=>{
@@ -61,19 +61,22 @@ const getPosts=async (req,res,next)=>{
 
 
 //=====================GET SINGLE POST===========
-// POST : api/posts/ :id
+// GET : api/posts/ :id
 //UNPROTECTED
 
 const getPost=async (req,res,next)=>{
     try {
-        const postId=req.params.id;
-        const post=await Post.findById(postId)
-        if(!post){
-            return next(new HttpError("Post not found",404))
+        const postId = req.params.id;
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return next(new HttpError("Post not found", 404));
         }
-        res.status(200).json(post)
+
+        res.status(200).json(post);
     } catch (error) {
-        return next(new HttpError(error))
+        console.error("Error fetching post:", error.message);
+        return next(new HttpError("Internal Server Error", 500));
     }
 }
 
