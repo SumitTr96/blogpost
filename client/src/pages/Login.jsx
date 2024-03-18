@@ -18,18 +18,22 @@ const Login = () => {
   })
 }
 
-  const loginUser=async(e)=>{
-    e.preventDefault()
-    setError('')
-    try {
-      const response=await axios.post(`${process.env.REACT_APP_BASE_URL}/users/Login`,formData)
-      const user=await response.data
-      setCurrentUser(user)
-      navigate('/')
-    } catch (err) {
-      setError(err.response.data.message)
+const loginUser = async (e) => {
+  e.preventDefault();
+  setError('');
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/users/Login`, formData);
+    if (response && response.data) {
+      const user = response.data;
+      setCurrentUser(user);
+      navigate('/');
+    } else {
+      throw new Error('Invalid response from server');
     }
+  } catch (err) {
+    setError(err.response?.data?.message || 'An error occurred while logging in');
   }
+};
 
   return (
     <div className="container py-5">

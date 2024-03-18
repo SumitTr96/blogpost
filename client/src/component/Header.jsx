@@ -39,22 +39,18 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/CreatePost" className="nav-link">
+                  <Link to="create" className="nav-link">
                     Create Post
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/Authors" className="nav-link">
+                  <Link to="authors" className="nav-link">
                     Authors
                   </Link>
                 </li>
+                
                 <li className="nav-item">
-                  <Link to="/UserProfile" className="nav-link">
-                    User
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/Logout" className="nav-link">
+                  <Link to="logout" className="nav-link">
                     Logout
                   </Link>
                 </li>

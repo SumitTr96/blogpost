@@ -1,27 +1,58 @@
-import PostsItem from "../component/PostsItem";
-import React, { useState,useContext,useEffect } from "react";
-import { UserContext } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from 'axios'
+import Loader from '../component/Loader'
+import PostAuthor from "../component/PostAuthor";
 
-const AuthorPosts = () => {
-  const {currentUser}=useContext(UserContext)
-  const token=currentUser?.token;
-  const navigate=useNavigate()
+
+const CategoryPosts = () => {
+  const [resource,setResource] = useState([]);
+  const [isLoading,setIsloading]=useState(false)
+
+  const {category}=useParams()
+ 
   useEffect(()=>{
-    if(!token){
-      navigate('/login')
-    }
-  },[])
+   const fetchPosts = async()=>{
+     setIsloading(true);
+     try {
+       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/categories/${category}`)
+       setResource(response?.data)
+     } catch (err) {
+       console.log(err)
+     }
+     setIsloading(false)
+   }
+     fetchPosts()
+  },[category])
+ 
+  if(isLoading){
+   return <Loader/>
+  }
+ 
   return (
-    <section>
-      {
-        <ul>
-          <PostsItem />{" "}
-          {/*The data will look same because it renders same home component*/}
-        </ul>
-      }
-    </section>
+     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+       {resource.map(({ _id:id, title, description,creator, thumbnail, category,createdAt }) => (
+         <div key={id} className="col">
+           <div className="card h-100">
+             <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} className="card-img-top img-fluid" alt="post" /> {/* Ensure images are responsive */}
+             <div className="card-body">
+               <h5 className="card-title">{title}</h5>
+               <p className="card-text">{description}</p>
+               <Link to={`posts/${id}`} className="btn btn-primary"> {/*Redirect to PostDetail */}
+                 Read More
+               </Link>
+             </div>
+             <div className="card-footer d-flex justify-content-between align-items-center">
+               <PostAuthor authorId={creator} createdAt={createdAt} />
+               <Link to={`posts/categories/${category}`} className="btn btn-light">
+                 {category}
+               </Link>
+             </div>
+           </div>
+         </div>
+       ))}
+     </div>
   );
 };
 
-export default AuthorPosts;
+export default CategoryPosts;

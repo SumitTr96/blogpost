@@ -41,7 +41,7 @@ const PostsItem = () => {
             </div>
             <div className="card-footer d-flex justify-content-between align-items-center">
               <PostAuthor authorId={creator} createdAt={createdAt} />
-              <Link to="/CategoryPosts" className="btn btn-light">
+              <Link to={`posts/categories/${category}`} className="btn btn-light">
                 {category}
               </Link>
             </div>
