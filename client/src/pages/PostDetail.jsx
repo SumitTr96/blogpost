@@ -42,10 +42,10 @@ const PostDetail = () => {
             <div className="col-lg-8 col-md-10 row justify-content-center card shadow-sm mx-auto">
               <div className="card-body header_author d-flex justify-content-between align-items-center mb-4">
                 <PostAuthor authorId={post.creator} createdAt={post.createdAt} />
-                {post && currentUser?.id === post.creator && (
+                {post && currentUser?.id === post?.creator && (
                   <div className="header_btns">
                     <Link
-                      to={`posts/${post?._id}/edit`}
+                      to={`/posts/${post?._id}/edit`}
                       className="btn btn-primary me-2"
                     >
                       EDIT

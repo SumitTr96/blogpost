@@ -129,7 +129,7 @@ const editPost=async (req,res,next)=>{
         if(!title || !category || description.length < 12){
             return next(new HttpError("Fill in all the fields",422))
         }
-        if(!reqFiles){
+        if(!req.files){
             updatedPost=await Post.findByIdAndUpdate(postId,{title,category,description},{new:true})
 
         }else{
@@ -151,8 +151,8 @@ const editPost=async (req,res,next)=>{
             }
             fileName= thumbnail.name;
             let splittedFilename=fileName.split('.')
-            newFilename=splittedFilename[0]+uuid()+"."+splittedFilename[splittedFilename.length-1]
-            thumbnail.mv(path.join(__dirname,"..",'uploads',newFileName),async(err)=>{
+            newFilename=splittedFilename[0]+uuid()+"."+splittedFilename[splittedFilename.length - 1]
+            thumbnail.mv(path.join(__dirname,"..",'uploads',newFilename),async(err)=>{
                 if(err){
                     return next(new HttpError(err))
                 }

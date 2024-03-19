@@ -8,7 +8,7 @@ import PostAuthor from "../component/PostAuthor";
 const AuthorPosts = () => {
   const [resource,setResource] = useState([]);
   const [isLoading,setIsloading]=useState(false)
-  const MAX_DESCRIPTION_LENGTH = 150;
+  const MAX_DESCRIPTION_LENGTH = 80;
   const {id}=useParams()
  
   useEffect(()=>{

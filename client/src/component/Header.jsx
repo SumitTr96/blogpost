@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import logo from '../images/logo.png'
 
 const Header = () => {
   const { currentUser } = useContext(UserContext);
@@ -10,7 +11,7 @@ const Header = () => {
         <div className="container px-3">
           <Link to="/" className="navbar-brand d-flex align-items-center">
             <img
-              src={process.env.PUBLIC_URL + "/images/logo.png"}
+              src={logo}
               className="logo-navbar"
               alt="logo"
               style={{

@@ -39,7 +39,7 @@ const CategoryPosts = () => {
                <h5 className="card-title">{title}</h5>
                <p className="card-text">{description}</p>
                <Link to={`posts/${id}`} className="btn btn-primary"> {/*Redirect to PostDetail */}
-                 Read More
+                Read More
                </Link>
              </div>
              <div className="card-footer d-flex justify-content-between align-items-center">

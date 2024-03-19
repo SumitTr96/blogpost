@@ -1,11 +1,16 @@
 import React, { useState,useContext,useEffect } from "react";
 import { UserContext } from "../context/userContext";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, useParams } from "react-router-dom";
+import axios from 'axios'
+
 const EditPost = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Uncategorized");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [error,setError]=useState("")
+  const {id}=useParams()
 
   const {currentUser}=useContext(UserContext)
   const token=currentUser?.token;
@@ -27,14 +32,55 @@ const EditPost = () => {
     "Weather",
   ];
 
+  useEffect(()=>{
+    const getPost = async()=>{
+      try {
+        const response= await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/${id}`)
+        setTitle(response.data.title)
+        setDescription(response.data.description)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getPost()
+  },[])
+
+  const editPost=async(e)=>{
+    e.preventDefault()
+
+    const postData = new FormData();
+    postData.set("title", title);
+    postData.set("category", category);
+    postData.set("description", description);
+    if(thumbnail){
+      postData.set("thumbnail", thumbnail);
+    }
+    
+
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_BASE_URL}/posts/${id}`,
+        postData,
+        { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.data.success) {
+        console.log("Post Created successfully");
+      }
+      return navigate("/");
+      
+    } catch (err) {
+      setError(err.response.data.message);
+    }
+  }
+
   return (
     <section className="edit_post py-5">
       <div className="container">
         <h2 className="mb-4">Edit Post</h2>
-        <div className="alert alert-danger" role="alert">
-          This is an error message
-        </div>
-        <form className="edit_post_form">
+        {error && <div className="alert alert-danger" role="alert">
+          {error}
+        </div>}
+        <form className="edit_post_form" onSubmit={editPost} >
           <div className="mb-3">
             <label className="form-label" htmlFor="formTitle">
               Title
@@ -67,7 +113,6 @@ const EditPost = () => {
               ))}
             </select>
           </div>
-
           <div className="mb-3">
             <label className="form-label" htmlFor="formThumbnail">
               Thumbnail
@@ -97,7 +142,7 @@ const EditPost = () => {
             />
           </div>
           <button className="btn btn-primary" type="submit">
-            Edit
+            Update
           </button>
         </form>
       </div>
