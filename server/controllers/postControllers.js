@@ -6,6 +6,34 @@ const {v4:uuid}=require('uuid')
 const HttpError=require('../models/errorModel')
 
 
+const getPostCount = async (authorId) => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/count/${authorId}`);
+      return response.data.count;
+    } catch (error) {
+      console.log(error);
+      return 0; // Default to 0 if there's an error
+    }
+  };
+  const fetchAndUpdateAuthors = async () => {
+    setIsLoading(true);
+    try {
+      const updatedAuthors = await Promise.all(authors.map(async (author) => {
+        const postCount = await getPostCount(author._id);
+        return { ...author, posts: postCount };
+      }));
+      setAuthors(updatedAuthors);
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
+  };
+
+  const handlePostChange = () => {
+    fetchAndUpdateAuthors(); // Call this function after creating, editing, or deleting a post
+  };
+  
+
 //=====================CREATE A POST===========
 // POST : api/posts
 //PROTECTED
@@ -41,7 +69,7 @@ const createPost=async (req,res,next)=>{
         })
     } catch (error) {
         return next(new HttpError(error))
-    }    
+    }    fetchAndUpdateAuthors();
 }
 
 
@@ -165,7 +193,7 @@ const editPost=async (req,res,next)=>{
         res.status(200).json(updatedPost)
     } catch (error) {
         return next(new HttpError(error))
-    }
+    }fetchAndUpdateAuthors();
 }
 
 
@@ -201,7 +229,7 @@ const deletePost=async (req,res,next)=>{
     }
     } catch (error) {
         return next(new HttpError(error))
-    }
+    }fetchAndUpdateAuthors();
 }
 
 

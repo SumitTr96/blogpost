@@ -33,7 +33,8 @@ const Authors = () => {
     getAuthors()
   },[])
 
-  
+
+
 
 
   return (
@@ -67,4 +68,4 @@ const Authors = () => {
   );
 };
 
-export default Authors;
+export default Authors 
