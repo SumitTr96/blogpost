@@ -29,7 +29,7 @@ const router= createBrowserRouter([
       {index:true, element: <Home />},
            {path:"login", element:<Login />},
            {path:"posts/:id", element:<PostDetail/>},
-           {path:"create", element:<CreatePost />},
+           {path:"create", element:<CreatePost/>},
            {path:"authors", element:<Authors />},
            {path:"posts/users/:id", element:<AuthorPosts />},
            {path:"posts/categories/:category", element:<CategoryPosts />},

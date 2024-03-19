@@ -34,6 +34,11 @@ const Header = () => {
             {currentUser?.id && (
               <ul className="navbar-nav me-auto">
                 <li className="nav-item">
+                  <Link to="/profile:/id" className="nav-link">
+                    {currentUser?.name}
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link to="/" className="nav-link">
                     Home
                   </Link>
@@ -48,7 +53,7 @@ const Header = () => {
                     Authors
                   </Link>
                 </li>
-                
+
                 <li className="nav-item">
                   <Link to="logout" className="nav-link">
                     Logout

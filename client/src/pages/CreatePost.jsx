@@ -1,21 +1,44 @@
-import React, { useState,useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../context/userContext";
+
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Uncategorized");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [error, setError] = useState("");
 
-  const {currentUser}=useContext(UserContext)
-  const token=currentUser?.token;
-  const navigate=useNavigate()
-  useEffect(()=>{
-    if(!token){
-      navigate('/login')
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
+  const navigate = useNavigate();
+
+  const createPost = async (e) => {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set("title", title);
+    postData.set("category", category);
+    postData.set("description", description);
+    postData.set("thumbnail", thumbnail);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/posts`,
+        postData,
+        { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.data.success) {
+        console.log("Post Created successfully");
+      }
+      return navigate("/");
+      
+    } catch (err) {
+      setError(err.response.data.message);
     }
-  },[])
+  };
 
   const POST_CATEGORIES = [
     "Agriculture",
@@ -32,10 +55,8 @@ const CreatePost = () => {
     <section className="create_post py-5">
       <div className="container">
         <h2 className="mb-4">Create Post</h2>
-        <div className="alert alert-danger" role="alert">
-          This is an error message
-        </div>
-        <form className="create_post_form">
+        {error && <p className="error">{error}</p>}
+        <form className="create_post_form" onSubmit={createPost}>
           <div className="mb-3">
             <label className="form-label" htmlFor="formTitle">
               Title

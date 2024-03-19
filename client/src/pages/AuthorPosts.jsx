@@ -8,7 +8,7 @@ import PostAuthor from "../component/PostAuthor";
 const AuthorPosts = () => {
   const [resource,setResource] = useState([]);
   const [isLoading,setIsloading]=useState(false)
-
+  const MAX_DESCRIPTION_LENGTH = 150;
   const {id}=useParams()
  
   useEffect(()=>{
@@ -28,6 +28,14 @@ const AuthorPosts = () => {
   if(isLoading){
    return <Loader/>
   }
+
+  const shortenDescription = (description) => {
+    if (description.length <= MAX_DESCRIPTION_LENGTH) {
+      return description;
+    } else {
+      return `${description.slice(0, MAX_DESCRIPTION_LENGTH)}...`;
+    }
+  }
  
   return (
      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -37,7 +45,7 @@ const AuthorPosts = () => {
              <img src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`} className="card-img-top img-fluid" alt="post" /> {/* Ensure images are responsive */}
              <div className="card-body">
                <h5 className="card-title">{title}</h5>
-               <p className="card-text">{description}</p>
+               <p dangerouslySetInnerHTML={{__html: shortenDescription(description)}} />
                <Link to={`posts/${id}`} className="btn btn-primary"> {/*Redirect to PostDetail */}
                  Read More
                </Link>
