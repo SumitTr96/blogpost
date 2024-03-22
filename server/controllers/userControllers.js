@@ -91,7 +91,7 @@ const getUser=async (req,res,next)=>{
 
 const editUser=async (req,res,next)=>{
     try {
-        const{name,email,currentPassword,newPassword,newConfirmNewPassword}=req.body;
+        const{name,email,currentPassword,newPassword,confirmNewPassword}=req.body;
         if(!name || !email || !currentPassword || !newPassword){
             return next(new HttpError("Fill in all the fields",422))
         }
@@ -116,7 +116,7 @@ const editUser=async (req,res,next)=>{
         }
 
         // compare new passwords
-        if(newPassword !== newConfirmNewPassword){
+        if(newPassword !== confirmNewPassword){
             return next(new HttpError("New passwords do not match",422))
         }
 

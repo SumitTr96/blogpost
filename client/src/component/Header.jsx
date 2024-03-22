@@ -5,6 +5,7 @@ import logo from '../images/logo.png'
 
 const Header = () => {
   const { currentUser } = useContext(UserContext);
+  
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -35,7 +36,7 @@ const Header = () => {
             {currentUser?.id && (
               <ul className="navbar-nav me-auto">
                 <li className="nav-item">
-                  <Link to="/profile:/id" className="nav-link">
+                  <Link to={`/profile/${currentUser.id}`} className="nav-link">
                     {currentUser?.name}
                   </Link>
                 </li>
@@ -45,12 +46,12 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="create" className="nav-link">
+                  <Link to="/create" className="nav-link">
                     Create Post
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="authors" className="nav-link">
+                  <Link to="/authors" className="nav-link">
                     Authors
                   </Link>
                 </li>

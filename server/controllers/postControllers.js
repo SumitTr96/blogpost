@@ -6,32 +6,7 @@ const {v4:uuid}=require('uuid')
 const HttpError=require('../models/errorModel')
 
 
-const getPostCount = async (authorId) => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/count/${authorId}`);
-      return response.data.count;
-    } catch (error) {
-      console.log(error);
-      return 0; // Default to 0 if there's an error
-    }
-  };
-  const fetchAndUpdateAuthors = async () => {
-    setIsLoading(true);
-    try {
-      const updatedAuthors = await Promise.all(authors.map(async (author) => {
-        const postCount = await getPostCount(author._id);
-        return { ...author, posts: postCount };
-      }));
-      setAuthors(updatedAuthors);
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
 
-  const handlePostChange = () => {
-    fetchAndUpdateAuthors(); // Call this function after creating, editing, or deleting a post
-  };
   
 
 //=====================CREATE A POST===========
@@ -51,11 +26,14 @@ const createPost=async (req,res,next)=>{
         }
         let fileName=thumbnail.name;
         let splittedFilename=fileName.split(".")
-        let newFilename=splittedFilename[0] + uuid()+"."+splittedFilename[splittedFilename.lenght-1]
-        thumbnail.mv(path.join(__dirname,"..",'/uploads',newFilename),async(err)=>{
-            if(err){
-                return next(new HttpError(err))
-            }else{
+        let newFilename=splittedFilename[0] + uuid()+"."+splittedFilename[splittedFilename.length-1]
+       
+        try {
+            await thumbnail.mv(path.join(__dirname, "..", '/uploads', newFilename));
+        } catch (err) {
+            return next(new HttpError(err));
+        }
+            
                 const newPost=await Post.create({title,category,description,thumbnail:newFilename,creator: req.user.id})
                 if(!newPost){
                     return next(new HttpError("Post couldn't be created",422))
@@ -65,11 +43,10 @@ const createPost=async (req,res,next)=>{
                 const userPostCount=currentUser.posts+1;
                 await User.findByIdAndUpdate(req.user.id,{posts:userPostCount})
                 res.status(200),res.json(newPost)
-            }
-        })
+            
     } catch (error) {
         return next(new HttpError(error))
-    }    fetchAndUpdateAuthors();
+    }    
 }
 
 
@@ -193,7 +170,7 @@ const editPost=async (req,res,next)=>{
         res.status(200).json(updatedPost)
     } catch (error) {
         return next(new HttpError(error))
-    }fetchAndUpdateAuthors();
+    }
 }
 
 
@@ -229,7 +206,7 @@ const deletePost=async (req,res,next)=>{
     }
     } catch (error) {
         return next(new HttpError(error))
-    }fetchAndUpdateAuthors();
+    }
 }
 
 
